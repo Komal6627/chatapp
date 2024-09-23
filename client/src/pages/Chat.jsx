@@ -3,7 +3,8 @@ import React from 'react'
 const Chat = () => {
   return (
     <div>
-        Chat Box here
+        Chat Application
+        
     </div>
   )
 }
