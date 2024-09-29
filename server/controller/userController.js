@@ -1,11 +1,30 @@
-import bcrypt from "bcrypt"
-import User from "../model/userModel";
+import bcrypt from "bcrypt";
+import User from "../model/userModel.js";
 
-export const register = async(req, res, next) => {
-    const { username, email, password } =req.body;
-    const usernameCheck = await User.findOne({username});
+export const register = async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+    const usernameCheck = await User.findOne({ username });
 
-    if(usernameCheck) {
-        return res.json({msg: "Username  already used", status: false})
+    if (usernameCheck) {
+      return res.json({ msg: "Username  already used", status: false });
     }
-}
+
+    const emailCheck = await User.findOne({ email });
+    if (emailCheck) {
+      return res.json({ msg: "Email Already used", status: false });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      email,
+      username,
+      password: hashedPassword,
+    });
+    delete user.password;
+    return res.json({ staus: true, user });
+  } catch (error) {
+    next(error)
+  }
+};
