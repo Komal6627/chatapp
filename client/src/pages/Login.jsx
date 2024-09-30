@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
 import {Link, useNavigate} from "react-router-dom"
 import Logo from "../assets/logo.webp"
@@ -22,39 +22,44 @@ const Login = () => {
     theme: 'dark'
   }
 
+  useEffect(() => {
+    if (localStorage.getItem('chat-app-user')) {
+      navigate("/");
+    }
+  },[])
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (handleValidation()) {
-      // console.log("In validation", loginRoute);
-      
-        const {password, username } = values;
-
-        const {data} = await axios.post(loginRoute, {
-          username, 
-          password,
-        });
-
-        if (data.status === false) {
-          toast.error(data.msg, toastOptions)
-        }
-
-        if (data.status === true) {
-          localStorage.setItem('chat-app-user', JSON.stringify(data.user))
-        }
-        
+    console.log('Form Submitted'); // Add this to check if form is submitted
+    if (validateForm()) {
+      const { username, password } = values;
+      const { data } = await axios.post(loginRoute, {
+        username,
+        password,
+      });
+      console.log(data); // Check response data from the server
+      if (data.status === false) {
+        toast.error(data.msg, toastOptions);
+      }
+      if (data.status === true) {
+        console.log('Navigating to /'); // Add this to see if it's being hit
+        localStorage.setItem('chat-app-user', JSON.stringify(data.user));
         navigate("/");
+      }
     }
-  }
+  };
+
+
 
 const handleChange = (event) => {
     setValues({...values, [event.target.name]: event.target.value});
     // console.log(event.target.value); 
 }
 
-const handleValidation = () => {
+const validateForm = () => {
   const {password,  username} = values;
-  if (password == "") {
+  if (password === "") {
       toast.error("Username and Password is required",toastOptions);
       return false;
   } else if(username.length === ""){
