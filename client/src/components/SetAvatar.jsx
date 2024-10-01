@@ -6,6 +6,7 @@ import axios from "axios";
 import loader from "../assets/loader.webp";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
+import { setAvatarRoute } from "../utils/APIRoutes";
 const SetAvatar = () => {
   const api = `https://api.multiavatar.com/739237`;
   const navigate = useNavigate();
@@ -20,7 +21,14 @@ const SetAvatar = () => {
     theme: "dark",
   };
 
-  const setProfilePicture = async () => {};
+  const setProfilePicture = async () => {
+      if (selectedAvatar === undefined) {
+        toast.error("Please select an avatar", toastOptions);
+      } else {
+        const user = await JSON.parse(localStorage.getItem('chat-app-user'))
+        const {data} = await axios.post(`${setAvatarRoute}/${user}`)
+      }
+  };
 
   const getImg = async () => {
     const data = [];
@@ -52,6 +60,12 @@ const SetAvatar = () => {
 
   return (
     <>
+      {
+         isLoading ? <Container>
+            <img src={loader} alt="loader" className="loader"/>
+         </Container>: (
+
+    
       <Container>
         <div className="title-container">
           <h1>Pick an avatar as your profile picture</h1>
@@ -78,6 +92,8 @@ const SetAvatar = () => {
           Set as Profile Picture
         </button>
       </Container>
+           )
+          }
       <ToastContainer />
     </>
   );
@@ -95,7 +111,10 @@ const Container = styled.div`
   width: 100vw;
 
   .loader {
-    max-inline-size: 100%;
+   
+    background-color: #131324;
+    height: 100vh;
+    width: 100vw;
   }
 
   .title-container {
