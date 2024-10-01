@@ -62,7 +62,7 @@ export const login = async (req, res, next) => {
         });
         return res.json({isSet: userData.isAvatarImageSet, image:userData.avatarImage })
       } catch (error) {
-        
+        next(error)
       }
   }
 
