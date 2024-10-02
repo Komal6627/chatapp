@@ -52,7 +52,7 @@ export const login = async (req, res, next) => {
   };
   
 
-  export const setAvatar = async(req, res, next) => {
+export const setAvatar = async(req, res, next) => {
       try {
         const userId = req.params.id;
         const avatarImage = req.body.image;
@@ -65,4 +65,20 @@ export const login = async (req, res, next) => {
         next(error)
       }
   }
+
+
+export const getAllUser = async(req, res, next) => {
+  try {
+    const users = await User.find({_id:{ $ne: req.params.id }}).select([
+      "email",
+      "username",
+      "avatarImage",
+      "_id",
+    ]) ;
+    return res.json(users)
+  } catch (error) {
+      next(error)
+  }
+}
+
 

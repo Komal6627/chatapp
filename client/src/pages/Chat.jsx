@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
 
 const Chat = () => {
+  const [contacts, setContacts] = useState();
+  const [currentUser, setCurrentUser] = useState(undefined);
+
+  
+
+  useEffect(async () =>{
+
+  },[])
+
   return (
    <Container>
         <div className="container">Chat</div>
