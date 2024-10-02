@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Contacts = () => {
+const Contacts = ({Contacts}) => {
   return (
-    <div>
+    <>
         Contacts
-    </div>
+    </>
   )
 }
 
