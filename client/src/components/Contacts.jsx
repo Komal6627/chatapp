@@ -26,17 +26,6 @@ const Contacts = ({ contacts, currentUser }) => {
             <h3>Saffie</h3>
           </div>
 
-          <div className="current-user">
-            <div className="avatar">
-              <img
-                src={`data:image/svg+xml; base64, ${currentUserImage}`}
-                alt="avatar"
-              />
-            </div>
-            <div className="username">
-              <h3>{currentUserName}</h3>
-            </div>
-          </div>
 
           <div className="contacts">
             {contacts && contacts.map((contact, index) => {
@@ -59,6 +48,19 @@ const Contacts = ({ contacts, currentUser }) => {
                 </div>
               );
             })}
+          </div>
+
+          
+          <div className="current-user">
+            <div className="avatar">
+              <img
+                src={`data:image/svg+xml; base64, ${currentUserImage}`}
+                alt="avatar"
+              />
+            </div>
+            <div className="username">
+              <h2>{currentUserName}</h2>
+            </div>
           </div>
          
         </Container>
@@ -90,16 +92,57 @@ const Container = styled.div`
     flex-direction: column;
     align-item: center;
     overflow: auto;
-    gap: 0.8rem;
+    gap: 0.3rem;
     .contact{
        background-color: #ffffff34;
-       min-height: 5 rem;
-       width: 90%
+       min-height: 4rem;
+       width: 90%;
+       cursor: pointer;
+       border-radius: 0.2rem;
+       padding: 0.4rem;
+       gap: 1rem;
+       aligh-items: center;
+       display: flex;
+       transition: 0.5s ease-in-out;
        .avatar{
-        height: 3rem
+        img{
+          height: 3rem;
+        }
        }
+      .username{
+        h3{
+        color: white
+        }
+      }
+    }
+    .selected {
+      background-color: #9186f3
     }
   }
+  .current-user {
+    background-color: #0d0d30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    .avatar {
+      img {
+        height: 4rem;
+        max-inline-size: 100%;
+      }
+    }
+    .username {
+      h2 {
+        color: white;
+      }
+      @media screen and (min-width: 720px) and (max-width: 1080px) {
+          gap: 0.5rem;
+          .username {
+          h2 {
+            font-size: 1rem;
+          }
+      }
+}
 `;
 
 export default Contacts;
