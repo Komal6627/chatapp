@@ -8,6 +8,8 @@ import Contacts from '../components/Contacts';
 const Chat = () => {
   const [contacts, setContacts] = useState();
   const [currentUser, setCurrentUser] = useState(undefined);
+  const[currentChat, setCurrentChat] = useState(undefined);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,14 +39,19 @@ const Chat = () => {
     fetchContacts();
   }, [currentUser, navigate]);
 
+  const handleChatChange = (chat) =>{
+      setCurrentChat(chat);
+  }
+
   return (
     <Container>
       <div className="container">
-        <Contacts contacts={contacts} currentUser={currentUser} />
+        <Contacts contacts={contacts} currentUser={currentUser} changeChat = {handleChatChange}/>
       </div>
     </Container>
   );
 };
+
 
 const Container = styled.div`
   height: 100vh;
@@ -61,7 +68,6 @@ const Container = styled.div`
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
-
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       grid-template-columns: 35% 65%;
     }
