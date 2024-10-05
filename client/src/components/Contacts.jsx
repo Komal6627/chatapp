@@ -8,6 +8,8 @@ const Contacts = ({ contacts, currentUser }) => {
   const [currentSelected, setCurrentSelected] = useState(undefined);
   useEffect(() => {
     if (currentUser) {
+      console.log(contacts);
+      
       setCurrentUserImage(currentUser.avatarImage);
       setCurrentUserName(currentUser.username);
     }
@@ -23,8 +25,21 @@ const Contacts = ({ contacts, currentUser }) => {
             <img src={logo} alt="logo" />
             <h3>Saffie</h3>
           </div>
+
+          <div className="current-user">
+            <div className="avatar">
+              <img
+                src={`data:image/svg+xml; base64, ${currentUserImage}`}
+                alt="avatar"
+              />
+            </div>
+            <div className="username">
+              <h3>{currentUserName}</h3>
+            </div>
+          </div>
+
           <div className="contacts">
-            {contacts?.map((contact, index) => {
+            {contacts && contacts.map((contact, index) => {
               return (
                 <div
                   className={`contact${
@@ -45,17 +60,7 @@ const Contacts = ({ contacts, currentUser }) => {
               );
             })}
           </div>
-          <div className="current-user">
-            <div className="avatar">
-              <img
-                src={`data:image/svg+xml; base64, ${currentUserImage}`}
-                alt="avatar"
-              />
-            </div>
-            <div className="username">
-              <h3>{currentUserName}</h3>
-            </div>
-          </div>
+         
         </Container>
       )}
     </>
@@ -64,7 +69,7 @@ const Contacts = ({ contacts, currentUser }) => {
 
 const Container = styled.div` 
   display: grid;
-  grid-template-columns: 10% 75% 15%;
+  grid-template-rows: 10% 75% 15%;
   overflow: hidden;
   background-color: #080420;
   .brand{
@@ -88,6 +93,11 @@ const Container = styled.div`
     gap: 0.8rem;
     .contact{
        background-color: #ffffff34;
+       min-height: 5 rem;
+       width: 90%
+       .avatar{
+        height: 3rem
+       }
     }
   }
 `;
