@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import Logout from './Logout';
+import ChatInput from './ChatInput';
 
 const ChatContainer = ({currentChat}) => {  
+  const handleSendMsg =async(msg) => {}
   return (
 <>
 { 
@@ -23,7 +25,7 @@ const ChatContainer = ({currentChat}) => {
         <Logout/>
       </div>
       <div className="chat-messages"></div>
-      <div className="chat-input"></div>
+     <ChatInput handleSendMsg = {handleSendMsg}/>
     </Container>
   )
   }
