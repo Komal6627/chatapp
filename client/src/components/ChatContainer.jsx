@@ -1,12 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Logout from './Logout';
 import ChatInput from './ChatInput';
 import Messages from './Messages';
 import axios from  'axios';
-import { sendMessageRoute } from '../utils/APIRoutes';
+import { getAllMessagesRoute, sendMessageRoute } from '../utils/APIRoutes';
 
-const ChatContainer = ({currentChat, currentUser}) => {  
+const ChatContainer = ({currentChat, currentUser}) => { 
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      if (currentUser?._id && currentChat?._id) {
+        try {
+          const { data } = await axios.post(getAllMessagesRoute, {
+            from: currentUser._id,
+            to: currentChat._id,
+          });
+          setMessages(data);
+          console.log("data", data);
+        } catch (error) {
+          console.error("Failed to fetch messages:", error.response?.data || error.message);
+        }
+      }
+    };
+  
+    fetchMessages();
+  }, [currentChat, currentUser, getAllMessagesRoute]);
+  
+
+
   const handleSendMsg =async(msg) => {
     await axios.post(sendMessageRoute, {
       from: currentUser._id,
@@ -33,7 +56,27 @@ const ChatContainer = ({currentChat, currentUser}) => {
         </div>
         <Logout/>
       </div>
-     <Messages/>
+     <div className="chat-messages">
+          {
+            messages.map((message) =>{
+              return(
+                <div>
+                    <div
+                className={`message ${
+                  message.fromSelf ? "sended" : "recieved"
+                }`}
+              >
+                <div className="content ">
+                  <p>{message.message}</p>
+                {  console.log(message.message)}
+                  
+                </div>
+              </div>
+                </div>
+              )
+            })
+          }
+     </div>
      <ChatInput handleSendMsg = {handleSendMsg}/>
     </Container>
   )
