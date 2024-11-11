@@ -68,7 +68,7 @@ const ChatContainer = ({currentChat, currentUser}) => {
               >
                 <div className="content ">
                   <p>{message.message}</p>
-                {  console.log(message.message)}
+                {console.log(message.message)}
                   
                 </div>
               </div>
