@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Logout from './Logout';
 import ChatInput from './ChatInput';
 import Messages from './Messages';
@@ -87,6 +87,14 @@ const ChatContainer = ({currentChat, currentUser}) => {
 
 const Container = styled.div`
 padding-top : 1rem;
+display: grid;
+grid-template-row: 10% 78% 12%;
+gap: 0.1rem;
+overflow: hidden;
+@media screen and (min-width: 720px) and (max-width: 1080px) {
+      grid-auto-rows: 15% 70% 15%;
+    }
+
 .chat-header {
   display: flex;
   justify-content:space-between;;
@@ -102,6 +110,30 @@ padding-top : 1rem;
     h3{
       color: white;
     }
+  }
+}
+.chat-messages{
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction:column;
+  gap: 1rem;
+  overflow: auto;
+  .message {
+    display: flex;
+    align-item: center;
+    .content{
+      max-width: 40%;
+      overflow-wrap: break-word;
+      padding: 1rem;
+      font-size: 1.1rem;
+      color: #d1d1d1;
+    }
+  }
+  .sended {
+  justify-content: flex-end;
+  .content {
+    background-color: #9900ff20;
+  }
   }
 }
 `;
