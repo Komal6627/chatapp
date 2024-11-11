@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { allUserRoute, host} from '../utils/APIRoutes';
@@ -9,7 +9,7 @@ import ChatContainer from '../components/ChatContainer';
 import {io} from "socket.io-client"
 
 const Chat = () => {
-  const socket = ueRef()
+  const socket = useRef()
   const [contacts, setContacts] = useState();
   const [currentUser, setCurrentUser] = useState(undefined);
   const[currentChat, setCurrentChat] = useState(undefined);
