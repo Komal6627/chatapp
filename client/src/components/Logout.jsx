@@ -21,7 +21,9 @@ const Logout = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding:0.5rem;
+    // padding:0.5rem;
+    padding: 0.2rem 0.5rem; /* Adjusted padding to reduce overall height */
+    height: 2.5rem; /* Added height property */
     border-radius: 0.5rem;
     background-color: #9a86f3;
     border: none;

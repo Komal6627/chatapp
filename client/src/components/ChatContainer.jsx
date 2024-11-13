@@ -147,6 +147,13 @@ overflow: hidden;
   flex-direction:column;
   gap: 1rem;
   overflow: auto;
+  // &::-webkit-scrollbar {
+  //     width: 0.2rem;
+  //     &-thumb {
+  //       background-color: #ffffff39;
+  //       width: 0.1rem;
+  //       border-radius: 1rem;
+  //     }
   .message {
     display: flex;
     align-item: center;
@@ -161,9 +168,19 @@ overflow: hidden;
   .sended {
   justify-content: flex-end;
   .content {
-    background-color: #9900ff20;
+     border-radius: 1rem;
+     background-color: #9900ff20;
+    //  background-color:#6A42C2;
   }
   }
+  .recieved {
+  .content {
+     border-radius: 1rem;
+     background-color: #6A42C2;
+  }
+  }
+}
+ 
 }
 `;
 
